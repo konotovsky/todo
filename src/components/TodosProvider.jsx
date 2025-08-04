@@ -55,6 +55,19 @@ function todosReducer(todos, action) {
         return todo;
       });
     }
+    case "TOGGLE_TODO_ITEM":
+      return todos.map((todo) => {
+        if (todo.id !== action.cardId) return todo;
+
+        return {
+          ...todo,
+          items: todo.items.map((item) =>
+            item.id === action.itemId
+              ? { ...item, isDone: !item.isDone }
+              : item,
+          ),
+        };
+      });
     default: {
       throw Error("Unknown action: " + action.type);
     }

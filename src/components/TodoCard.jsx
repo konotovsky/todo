@@ -6,7 +6,7 @@ export function TodoCard({ cardId, cardTitle, cardItems }) {
   return (
     <div className="flex max-h-80 min-h-80 w-80 flex-col rounded-2xl bg-white shadow-xl">
       <TodoHeader cardId={cardId} cardTitle={cardTitle} />
-      <TodoList cardItems={cardItems} />
+      <TodoList cardId={cardId} cardItems={cardItems} />
       <TodoFooter cardId={cardId} />
     </div>
   );
