@@ -1,6 +1,7 @@
-import { useTodosDispatch } from "./TodosProvider";
+import { useTodos, useTodosDispatch } from "./TodosProvider";
 
 export function TodoFooter({ cardId }) {
+  const todos = useTodos();
   const dispatch = useTodosDispatch();
 
   const handleAddTodoClick = (cardId) => {
@@ -8,7 +9,7 @@ export function TodoFooter({ cardId }) {
   };
 
   return (
-    <div className="relative flex justify-between rounded-b-2xl bg-red-400 p-5">
+    <div className="relative flex rounded-b-2xl bg-red-400 p-5">
       <button
         onClick={() => handleAddTodoClick(cardId)}
         type="button"
@@ -16,6 +17,15 @@ export function TodoFooter({ cardId }) {
       >
         +
       </button>
+      <div className="text-xs text-white">
+        Completed:{" "}
+        {
+          todos
+            .filter((todo) => todo.id === cardId)[0]
+            ?.items.filter((item) => item.isDone).length
+        }
+        /{todos.filter((todo) => todo.id === cardId)[0].items.length}
+      </div>
     </div>
   );
 }
