@@ -30,9 +30,28 @@ function todosReducer(todos, action) {
         {
           id: uuidv4(),
           title: "New Todo",
+          isEdit: false,
           items: [],
         },
       ];
+    }
+    case "EDIT_TODO_CARD": {
+      return todos.map((todo) => {
+        if (todo.id === action.id) {
+          return {
+            ...todo,
+            isEdit: !todo.isEdit,
+          };
+        }
+        return todo;
+      });
+    }
+    case "UPDATE_TODO_CARD": {
+      return todos.map((todo) =>
+        todo.id === action.id
+          ? { ...todo, title: action.title, isEdit: false }
+          : todo,
+      );
     }
     case "REMOVE_TODO_CARD": {
       return todos.filter((todo) => todo.id !== action.id);

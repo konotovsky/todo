@@ -13,6 +13,7 @@ export function TodoBoard() {
             key={todo.id}
             cardId={todo.id}
             cardTitle={todo.title}
+            cardIsEdit={todo.isEdit}
             cardItems={todo.items}
           />
         );
