@@ -21,10 +21,10 @@ export function TodoFooter({ cardId }) {
         Completed:{" "}
         {
           todos
-            .filter((todo) => todo.id === cardId)[0]
+            .find((todo) => todo.id === cardId)
             ?.items.filter((item) => item.isDone).length
         }
-        /{todos.filter((todo) => todo.id === cardId)[0].items.length}
+        /{todos.find((todo) => todo.id === cardId)?.items.length}
       </div>
     </div>
   );
