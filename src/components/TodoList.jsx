@@ -1,6 +1,6 @@
 import { TodoItem } from "./TodoItem";
 
-export function TodoList({ cardId, cardItems }) {
+export function TodoList({ cardId, cardItems, cardIsEdit }) {
   return (
     <div className="scrollbar-thin flex-1 overflow-y-auto px-5">
       <ul>
@@ -12,6 +12,7 @@ export function TodoList({ cardId, cardItems }) {
               itemIsDone={item.isDone}
               cardId={cardId}
               itemId={item.id}
+              cardIsEdit={cardIsEdit}
             />
           );
         })}

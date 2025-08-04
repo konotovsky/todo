@@ -10,7 +10,7 @@ export function TodoHeader({ cardId, cardTitle, cardIsEdit }) {
   };
 
   const handleUpdateClick = (cardId) => {
-    dispatch({ type: "UPDATE_TODO_CARD", id: cardId, title: editTitle });
+    dispatch({ type: "EDIT_TODO_CARD_TITLE", id: cardId, title: editTitle });
   };
 
   const handleRemoveClick = (cardId) => {

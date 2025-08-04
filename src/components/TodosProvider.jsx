@@ -46,7 +46,7 @@ function todosReducer(todos, action) {
         return todo;
       });
     }
-    case "UPDATE_TODO_CARD": {
+    case "EDIT_TODO_CARD_TITLE": {
       return todos.map((todo) =>
         todo.id === action.id
           ? { ...todo, title: action.title, isEdit: false }
@@ -74,7 +74,7 @@ function todosReducer(todos, action) {
         return todo;
       });
     }
-    case "TOGGLE_TODO_ITEM":
+    case "TOGGLE_TODO_ITEM": {
       return todos.map((todo) => {
         if (todo.id !== action.cardId) return todo;
 
@@ -87,6 +87,31 @@ function todosReducer(todos, action) {
           ),
         };
       });
+    }
+    case "EDIT_TODO_ITEM_VALUE": {
+      return todos.map((todo) => {
+        if (todo.id !== action.cardId) return todo;
+
+        return {
+          ...todo,
+          items: todo.items.map((item) =>
+            item.id === action.itemId ? { ...item, value: action.value } : item,
+          ),
+        };
+      });
+    }
+    case "REMOVE_TODO_ITEM": {
+      return todos.map((todo) => {
+        if (todo.id === action.cardId) {
+          return {
+            ...todo,
+            items: todo.items.filter((item) => item.id !== action.itemId),
+          };
+        }
+        return todo;
+      });
+    }
+
     default: {
       throw Error("Unknown action: " + action.type);
     }

@@ -10,7 +10,7 @@ export function TodoCard({ cardId, cardTitle, cardIsEdit, cardItems }) {
         cardTitle={cardTitle}
         cardIsEdit={cardIsEdit}
       />
-      <TodoList cardId={cardId} cardItems={cardItems} />
+      <TodoList cardId={cardId} cardItems={cardItems} cardIsEdit={cardIsEdit} />
       <TodoFooter cardId={cardId} />
     </div>
   );
