@@ -12,8 +12,10 @@ export function TodoFooter({ cardId }) {
       <button
         onClick={() => handleAddTodoClick(cardId)}
         type="button"
-        className="absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 transform cursor-pointer items-center justify-center rounded-full border-4 border-white bg-red-400 text-2xl font-bold text-white"
-      ></button>
+        className="absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 transform cursor-pointer items-center justify-center rounded-full border-4 border-white bg-red-400 font-mono text-xl text-white"
+      >
+        +
+      </button>
     </div>
   );
 }

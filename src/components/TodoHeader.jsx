@@ -19,12 +19,12 @@ export function TodoHeader({ cardId, cardTitle, cardIsEdit }) {
 
   return (
     <div className="flex justify-between p-5">
-      <h3 className="truncate border-b-1 border-gray-100 text-xl font-bold">
+      <h3 className="truncate border-b-1 border-gray-100 text-xl font-bold text-red-400">
         {cardIsEdit ? (
           <input
             type="text"
             value={editTitle}
-            className="w-full text-xl font-bold outline-0"
+            className="w-full text-xl font-bold text-gray-600 outline-0"
             onChange={(e) => setEditTitle(e.target.value)}
           ></input>
         ) : (
