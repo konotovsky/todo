@@ -11,9 +11,9 @@ export function TodoCardAddButton() {
     <button
       type="button"
       onClick={handleAddClick}
-      className="fixed right-5 bottom-5 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border-1 border-gray-100 bg-black text-white shadow-md"
+      className="fixed right-5 bottom-5 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black text-white shadow-md shadow-black transition-colors hover:bg-gray-800"
     >
-      <span className="font-mono text-xl leading-none font-bold">+</span>
+      <span className="font-mono text-2xl leading-none">+</span>
     </button>
   );
 }

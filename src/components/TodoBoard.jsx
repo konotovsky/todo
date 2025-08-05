@@ -11,10 +11,10 @@ export function TodoBoard() {
         return (
           <TodoCard
             key={todo.id}
-            cardId={todo.id}
-            cardTitle={todo.title}
-            cardIsEdit={todo.isEdit}
-            cardItems={todo.items}
+            id={todo.id}
+            title={todo.title}
+            isEdit={todo.isEdit}
+            items={todo.items}
           />
         );
       })}

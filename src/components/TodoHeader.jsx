@@ -1,33 +1,33 @@
 import { useState } from "react";
 import { useTodosDispatch } from "./TodosProvider";
 
-export function TodoHeader({ cardId, cardTitle, cardIsEdit }) {
-  const [editTitle, setEditTitle] = useState(cardTitle);
+export function TodoHeader({ id, title, isEdit }) {
+  const [editTitle, setEditTitle] = useState(title);
   const dispatch = useTodosDispatch();
 
-  const handleEditClick = (cardId) => {
-    dispatch({ type: "EDIT_TODO_CARD", id: cardId });
+  const handleEditClick = () => {
+    dispatch({ type: "EDIT_TODO_CARD", id });
   };
 
-  const handleUpdateClick = (cardId) => {
-    let value = editTitle.trim();
+  const handleUpdateClick = () => {
+    let title = editTitle.trim();
 
-    if (value.length < 1) {
-      value = "New Todo";
-      setEditTitle(value);
+    if (title.length < 1) {
+      title = "New Todo";
+      setEditTitle(title);
     }
 
-    dispatch({ type: "EDIT_TODO_CARD_TITLE", id: cardId, title: value });
+    dispatch({ type: "EDIT_TODO_CARD_TITLE", id, title: title });
   };
 
-  const handleRemoveClick = (cardId) => {
-    dispatch({ type: "REMOVE_TODO_CARD", id: cardId });
+  const handleRemoveClick = () => {
+    dispatch({ type: "REMOVE_TODO_CARD", id });
   };
 
   return (
     <div className="flex justify-between p-5">
       <h3 className="truncate border-b-1 border-gray-100 text-xl font-bold text-red-400">
-        {cardIsEdit ? (
+        {isEdit ? (
           <input
             type="text"
             value={editTitle}
@@ -35,27 +35,23 @@ export function TodoHeader({ cardId, cardTitle, cardIsEdit }) {
             onChange={(e) => setEditTitle(e.target.value)}
           ></input>
         ) : (
-          cardTitle
+          title
         )}
       </h3>
       <div className="flex gap-2 border-b-1 border-transparent">
+        {isEdit ? (
+          <button className="cursor-pointer" onClick={handleUpdateClick}>
+            ✔️
+          </button>
+        ) : (
+          <button className="cursor-pointer" onClick={handleEditClick}>
+            ✏️
+          </button>
+        )}
         <button
           type="button"
           className="cursor-pointer"
-          onClick={() => {
-            if (cardIsEdit) {
-              handleUpdateClick(cardId);
-            } else {
-              handleEditClick(cardId);
-            }
-          }}
-        >
-          {cardIsEdit ? "✔️" : "✏️"}
-        </button>
-        <button
-          type="button"
-          className="cursor-pointer"
-          onClick={() => handleRemoveClick(cardId)}
+          onClick={handleRemoveClick}
         >
           ✖
         </button>
