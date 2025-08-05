@@ -36,12 +36,6 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
     });
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      e.target.blur();
-    }
-  };
-
   return (
     <li className="border-b border-gray-100 py-2">
       <label className="flex cursor-pointer items-center gap-2 text-sm break-words hyphens-auto text-red-400">
@@ -59,7 +53,6 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
               value={editValue}
               onChange={(e) => setEditValue(e.target.value)}
               onBlur={updateItem}
-              onKeyDown={handleKeyDown}
               className="w-full text-sm text-gray-600 outline-0"
             />
             <button
