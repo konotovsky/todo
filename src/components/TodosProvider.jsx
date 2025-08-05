@@ -1,11 +1,20 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 const TodosContext = createContext(null);
 const TodosDispatchContext = createContext(null);
 
 export function TodosProvider({ children }) {
-  const [todos, dispatch] = useReducer(todosReducer, []);
+  const init = () => {
+    const todosFromStorage = localStorage.getItem("todos");
+    return todosFromStorage ? JSON.parse(todosFromStorage) : [];
+  };
+
+  const [todos, dispatch] = useReducer(todosReducer, [], init);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <TodosContext value={todos}>
