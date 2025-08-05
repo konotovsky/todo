@@ -20,11 +20,18 @@ export function TodoItem({
   };
 
   const handleUpdateChange = (cardId, itemId, editItemValue) => {
+    let value = editItemValue.trim();
+
+    if (value.length < 1) {
+      value = "New Item";
+      setEditItemValue(value);
+    }
+
     dispatch({
       type: "EDIT_TODO_ITEM_VALUE",
       cardId: cardId,
       itemId: itemId,
-      value: editItemValue,
+      value: value,
     });
   };
 
