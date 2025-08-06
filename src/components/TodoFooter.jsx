@@ -1,11 +1,8 @@
-import { useTodos, useTodosDispatch } from "./TodosProvider";
+import { useTodosDispatch } from "./TodosProvider";
+import { TodoStats } from "./TodoStats";
 
 export function TodoFooter({ id }) {
-  const todos = useTodos();
   const dispatch = useTodosDispatch();
-  const todo = todos.find((todo) => todo.id === id);
-  const completedCount = todo?.items.filter((item) => item.isDone).length ?? 0;
-  const totalCount = todo?.items.length ?? 0;
 
   const handleAddTodoClick = () => {
     dispatch({ type: "ADD_TODO_ITEM", cardId: id });
@@ -27,9 +24,7 @@ export function TodoFooter({ id }) {
           <path d="M8.75 3.75a.75.75 0 0 0-1.5 0v3.5h-3.5a.75.75 0 0 0 0 1.5h3.5v3.5a.75.75 0 0 0 1.5 0v-3.5h3.5a.75.75 0 0 0 0-1.5h-3.5v-3.5Z" />
         </svg>
       </button>
-      <div className="text-xs text-white">
-        Completed: {completedCount}/{totalCount}
-      </div>
+      <TodoStats id={id} />
     </div>
   );
 }
