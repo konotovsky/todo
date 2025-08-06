@@ -1,9 +1,15 @@
+import clsx from "clsx";
 import { useState } from "react";
-import { useTodosDispatch } from "./TodosProvider";
+import { useTodos, useTodosDispatch } from "./TodosProvider";
+import { colorMap } from "./colorMap";
 
 export function TodoItem({ value, isDone, cardId, id, isEdit }) {
   const [editValue, setEditValue] = useState(value);
   const dispatch = useTodosDispatch();
+  const todos = useTodos();
+
+  const currentColor = todos.find((todo) => todo.id === cardId)?.color;
+  const colorClasses = colorMap[currentColor] || {};
 
   const toggleItem = () => {
     dispatch({
@@ -17,7 +23,6 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
     let trimmed = editValue.trim();
     if (trimmed.length < 1) {
       trimmed = "New task";
-
       if (!isEdit) {
         setEditValue(trimmed);
       }
@@ -41,10 +46,19 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
 
   return (
     <li className="border-b border-gray-100 py-2">
-      <label className="flex cursor-pointer items-center gap-2 text-sm break-words hyphens-auto text-red-400">
+      <label
+        className={clsx(
+          "flex cursor-pointer items-center gap-2 text-sm break-words hyphens-auto",
+          colorClasses.text,
+        )}
+      >
         <input
           type="checkbox"
-          className="h-5 w-5 shrink-0 cursor-pointer appearance-none rounded-full border-2 border-red-200 checked:bg-red-400"
+          className={clsx(
+            "h-5 w-5 shrink-0 cursor-pointer appearance-none rounded-full border-2",
+            `border-${currentColor}`,
+            isDone && colorClasses.bg,
+          )}
           checked={isDone}
           onChange={toggleItem}
         />
@@ -69,7 +83,11 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
                 fill="currentColor"
-                className="size-5 text-red-400 transition-colors hover:text-red-500"
+                className={clsx(
+                  "size-5 transition-colors",
+                  colorClasses.text,
+                  colorClasses.hoverText,
+                )}
               >
                 <path
                   fillRule="evenodd"

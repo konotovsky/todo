@@ -39,6 +39,7 @@ function todosReducer(todos, action) {
         {
           id: uuidv4(),
           title: "",
+          color: "red-500",
           isEdit: true,
           items: [],
         },
@@ -54,6 +55,11 @@ function todosReducer(todos, action) {
         todo.id === action.id
           ? { ...todo, title: action.title, isEdit: false }
           : todo,
+      );
+    }
+    case "EDIT_TODO_CARD_COLOR": {
+      return todos.map((todo) =>
+        todo.id === action.id ? { ...todo, color: action.color } : todo,
       );
     }
     case "REMOVE_TODO_CARD": {
