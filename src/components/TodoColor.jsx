@@ -1,18 +1,14 @@
 import clsx from "clsx";
-import { useTodos, useTodosDispatch } from "./TodosProvider";
+import { useTodosDispatch } from "./TodosProvider";
 import { colorMap } from "./colorMap";
 
 export function TodoColor({ id, isEdit }) {
-  const todos = useTodos();
   const dispatch = useTodosDispatch();
-
   const availableColors = isEdit ? Object.keys(colorMap) : [];
 
   const handleColorClick = (color) => {
     dispatch({ type: "EDIT_TODO_CARD_COLOR", id, color });
   };
-
-  const currentColor = todos.find((todo) => todo.id === id)?.color;
 
   return (
     <div className="flex items-center gap-1">
