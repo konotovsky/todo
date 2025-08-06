@@ -33,6 +33,8 @@ export function TodoHeader({ id, title, isEdit }) {
             value={editTitle}
             className="w-full text-xl font-bold text-gray-600 outline-0"
             onChange={(e) => setEditTitle(e.target.value)}
+            placeholder="Enter your Todo title"
+            autoFocus
           ></input>
         ) : (
           title

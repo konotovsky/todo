@@ -38,8 +38,8 @@ function todosReducer(todos, action) {
         ...todos,
         {
           id: uuidv4(),
-          title: "New Todo",
-          isEdit: false,
+          title: "",
+          isEdit: true,
           items: [],
         },
       ];
@@ -64,9 +64,10 @@ function todosReducer(todos, action) {
         todo.id === action.cardId
           ? {
               ...todo,
+              isEdit: true,
               items: [
                 ...todo.items,
-                { id: uuidv4(), value: "New Item", isDone: false },
+                { id: uuidv4(), value: "", isDone: false },
               ],
             }
           : todo,

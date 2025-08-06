@@ -54,6 +54,7 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
               onChange={(e) => setEditValue(e.target.value)}
               onBlur={updateItem}
               className="w-full text-sm text-gray-600 outline-0"
+              autoFocus
             />
             <button
               type="button"
