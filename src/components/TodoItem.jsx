@@ -17,7 +17,10 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
     let trimmed = editValue.trim();
     if (trimmed.length === 0) {
       trimmed = "New Item";
-      setEditValue(trimmed);
+
+      if (!isEdit) {
+        setEditValue(trimmed);
+      }
     }
 
     dispatch({
