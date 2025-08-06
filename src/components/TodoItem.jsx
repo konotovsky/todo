@@ -16,7 +16,7 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
   const updateItem = () => {
     let trimmed = editValue.trim();
     if (trimmed.length < 1) {
-      trimmed = "New Item";
+      trimmed = "New task";
 
       if (!isEdit) {
         setEditValue(trimmed);
