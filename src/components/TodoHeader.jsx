@@ -14,7 +14,10 @@ export function TodoHeader({ id, title, isEdit }) {
 
     if (title.length < 1) {
       title = "New Todo";
-      setEditTitle(title);
+
+      if (!isEdit) {
+        setEditTitle(title);
+      }
     }
 
     dispatch({ type: "EDIT_TODO_CARD_TITLE", id, title: title });
