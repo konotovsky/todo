@@ -1,19 +1,24 @@
-import { useTodos, useTodosDispatch } from "./TodosProvider";
+import { useSelector } from "react-redux";
+import {
+  addedTodoCard,
+  selectTodoCards,
+} from "../features/todoCards/todoCardsSlice";
+import { useDispatch } from "react-redux";
 
 export function TodoCardAddButton() {
-  const todos = useTodos();
-  const dispatch = useTodosDispatch();
-  const isEdit = todos.find((todo) => todo.isEdit);
+  const todoCards = useSelector(selectTodoCards);
+  const isEdit = todoCards.some((todoCard) => todoCard.isEdit);
+  const dispatch = useDispatch();
 
-  const handleAddClick = () => {
-    dispatch({ type: "ADD_TODO_CARD" });
+  const handleAddTodoCard = () => {
+    dispatch(addedTodoCard());
   };
 
   return (
     !isEdit && (
       <button
         type="button"
-        onClick={handleAddClick}
+        onClick={handleAddTodoCard}
         className="fixed right-5 bottom-5 flex h-12 w-12 cursor-pointer items-center justify-center rounded-full bg-black text-white shadow-md shadow-black transition-colors hover:bg-gray-800"
       >
         <svg

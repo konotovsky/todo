@@ -1,16 +1,20 @@
-import clsx from "clsx";
+import { useSelector } from "react-redux";
+import { selectTodoCardById } from "../features/todoCards/todoCardsSlice";
 import { useState } from "react";
-import { useTodos, useTodosDispatch } from "./TodosProvider";
+import clsx from "clsx";
 import { colorMap } from "./colorMap";
 
-export function TodoHeader({ id, title, isEdit }) {
-  const todos = useTodos();
-  const dispatch = useTodosDispatch();
+export function TodoHeader({ id }) {
+  const todoCard = useSelector((state) => selectTodoCardById(state, id));
+  const title = todoCard.title;
+  const isEdit = todoCard.isEdit;
+  const currentColor = todoCard.color;
+  const colorClasses = colorMap[currentColor] || {};
 
-  const [editTitle, setEditTitle] = useState(title);
+  const [editTitle, setEditTitle] = useState(todoCard.title);
 
   const handleEditClick = () => {
-    dispatch({ type: "EDIT_TODO_CARD", id });
+    // dispatch({ type: "EDIT_TODO_CARD", id });
   };
 
   const handleUpdateClick = () => {
@@ -21,15 +25,12 @@ export function TodoHeader({ id, title, isEdit }) {
         setEditTitle(updatedTitle);
       }
     }
-    dispatch({ type: "EDIT_TODO_CARD_TITLE", id, title: updatedTitle });
+    // dispatch({ type: "EDIT_TODO_CARD_TITLE", id, title: updatedTitle });
   };
 
   const handleRemoveClick = () => {
-    dispatch({ type: "REMOVE_TODO_CARD", id });
+    // dispatch({ type: "REMOVE_TODO_CARD", id });
   };
-
-  const currentColor = todos.find((todo) => todo.id === id)?.color;
-  const colorClasses = colorMap[currentColor] || {};
 
   return (
     <div className="flex justify-between p-5">

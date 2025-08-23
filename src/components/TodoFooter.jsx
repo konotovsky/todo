@@ -1,18 +1,18 @@
 import clsx from "clsx";
 import { colorMap } from "./colorMap";
 import { TodoColor } from "./TodoColor";
-import { useTodos, useTodosDispatch } from "./TodosProvider";
 import { TodoStats } from "./TodoStats";
+import { useSelector } from "react-redux";
+import { selectTodoCardById } from "../features/todoCards/todoCardsSlice";
 
-export function TodoFooter({ id, isEdit }) {
-  const dispatch = useTodosDispatch();
-  const todos = useTodos();
-
-  const currentColor = todos.find((todo) => todo.id === id)?.color;
+export function TodoFooter({ id }) {
+  const todoCard = useSelector((state) => selectTodoCardById(state, id));
+  const isEdit = todoCard.isEdit;
+  const currentColor = todoCard.color;
   const colorClasses = colorMap[currentColor] || {};
 
   const handleAddTodoClick = () => {
-    dispatch({ type: "ADD_TODO_ITEM", cardId: id });
+    // dispatch({ type: "ADD_TODO_ITEM", cardId: id });
   };
 
   return (

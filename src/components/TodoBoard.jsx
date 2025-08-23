@@ -1,24 +1,17 @@
+import { useSelector } from "react-redux";
 import { TodoCard } from "./TodoCard";
 import { TodoCardAddButton } from "./TodoCardAddButton";
-import { useTodos } from "./TodosProvider";
+import { selectTodoCards } from "../features/todoCards/todoCardsSlice";
 
-export function TodoBoard() {
-  const todos = useTodos();
+export const TodoBoard = () => {
+  const todoCards = useSelector(selectTodoCards);
 
   return (
     <div className="flex flex-wrap content-start items-stretch justify-center gap-4 p-4">
-      {todos.map((todo) => {
-        return (
-          <TodoCard
-            key={todo.id}
-            id={todo.id}
-            title={todo.title}
-            isEdit={todo.isEdit}
-            items={todo.items}
-          />
-        );
-      })}
+      {todoCards.map((todo) => (
+        <TodoCard key={todo.id} id={todo.id} />
+      ))}
       <TodoCardAddButton />
     </div>
   );
-}
+};
