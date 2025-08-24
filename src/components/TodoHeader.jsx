@@ -1,35 +1,41 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectTodoCardById } from "../features/todoCards/todoCardsSlice";
+import {
+  removedTodoCard,
+  editedTodoCard,
+  editedTodoCardTitle,
+} from "../features/todoCards/todoCardsSlice";
 import { useState } from "react";
 import clsx from "clsx";
 import { colorMap } from "./colorMap";
 
 export function TodoHeader({ id }) {
   const todoCard = useSelector((state) => selectTodoCardById(state, id));
-  const title = todoCard.title;
-  const isEdit = todoCard.isEdit;
-  const currentColor = todoCard.color;
-  const colorClasses = colorMap[currentColor] || {};
+  const dispatch = useDispatch();
 
-  const [editTitle, setEditTitle] = useState(todoCard.title);
+  const { title, isEdit, color } = todoCard;
+  const colorClasses = colorMap[color] || {};
+
+  const [draftTitle, setDraftTitle] = useState(title);
 
   const handleEditClick = () => {
-    // dispatch({ type: "EDIT_TODO_CARD", id });
+    dispatch(editedTodoCard(id));
   };
 
-  const handleUpdateClick = () => {
-    let updatedTitle = editTitle.trim();
-    if (updatedTitle.length < 1) {
-      updatedTitle = "New Todo";
+  const handleConfirmEditClick = () => {
+    let newTitle = draftTitle.trim();
+    if (newTitle.length < 1) {
+      newTitle = "New Todo Card";
       if (!isEdit) {
-        setEditTitle(updatedTitle);
+        setDraftTitle(newTitle);
       }
     }
-    // dispatch({ type: "EDIT_TODO_CARD_TITLE", id, title: updatedTitle });
+
+    dispatch(editedTodoCardTitle({ id, title: newTitle }));
   };
 
   const handleRemoveClick = () => {
-    // dispatch({ type: "REMOVE_TODO_CARD", id });
+    dispatch(removedTodoCard(id));
   };
 
   return (
@@ -43,9 +49,9 @@ export function TodoHeader({ id }) {
         {isEdit ? (
           <input
             type="text"
-            value={editTitle}
+            value={draftTitle}
             className="w-full text-xl font-bold text-gray-600 outline-0"
-            onChange={(e) => setEditTitle(e.target.value)}
+            onChange={(e) => setDraftTitle(e.target.value)}
             placeholder="Enter your Todo title"
             autoFocus
           />
@@ -56,7 +62,7 @@ export function TodoHeader({ id }) {
 
       <div className="flex gap-2 border-b-1 border-transparent">
         {isEdit ? (
-          <button className="cursor-pointer" onClick={handleUpdateClick}>
+          <button className="cursor-pointer" onClick={handleConfirmEditClick}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"

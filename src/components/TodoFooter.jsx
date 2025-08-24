@@ -1,18 +1,22 @@
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addedTodoListItem,
+  selectTodoCardById,
+} from "../features/todoCards/todoCardsSlice";
 import clsx from "clsx";
 import { colorMap } from "./colorMap";
 import { TodoColor } from "./TodoColor";
 import { TodoStats } from "./TodoStats";
-import { useSelector } from "react-redux";
-import { selectTodoCardById } from "../features/todoCards/todoCardsSlice";
 
 export function TodoFooter({ id }) {
   const todoCard = useSelector((state) => selectTodoCardById(state, id));
-  const isEdit = todoCard.isEdit;
-  const currentColor = todoCard.color;
-  const colorClasses = colorMap[currentColor] || {};
+  const dispatch = useDispatch();
 
-  const handleAddTodoClick = () => {
-    // dispatch({ type: "ADD_TODO_ITEM", cardId: id });
+  const { color } = todoCard;
+  const colorClasses = colorMap[color] || {};
+
+  const handleAddTodoItemClick = () => {
+    dispatch(addedTodoListItem(id));
   };
 
   return (
@@ -23,7 +27,7 @@ export function TodoFooter({ id }) {
       )}
     >
       <button
-        onClick={handleAddTodoClick}
+        onClick={handleAddTodoItemClick}
         type="button"
         className={clsx(
           "absolute -top-5 left-1/2 flex h-10 w-10 -translate-x-1/2 transform cursor-pointer items-center justify-center rounded-full border-4 border-white font-mono text-xl text-white transition-colors",
@@ -42,7 +46,7 @@ export function TodoFooter({ id }) {
       </button>
 
       <TodoStats id={id} />
-      <TodoColor id={id} isEdit={isEdit} />
+      <TodoColor id={id} />
     </div>
   );
 }

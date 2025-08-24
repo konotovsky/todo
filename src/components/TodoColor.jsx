@@ -1,13 +1,20 @@
 import clsx from "clsx";
-import { useTodosDispatch } from "./TodosProvider";
 import { colorMap } from "./colorMap";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  editedTodoCardColor,
+  selectTodoCardById,
+} from "../features/todoCards/todoCardsSlice";
 
-export function TodoColor({ id, isEdit }) {
-  const dispatch = useTodosDispatch();
+export function TodoColor({ id }) {
+  const todoCard = useSelector((state) => selectTodoCardById(state, id));
+  const dispatch = useDispatch();
+
+  const { isEdit } = todoCard;
   const availableColors = isEdit ? Object.keys(colorMap) : [];
 
   const handleColorClick = (color) => {
-    dispatch({ type: "EDIT_TODO_CARD_COLOR", id, color });
+    dispatch(editedTodoCardColor({ id, color }));
   };
 
   return (

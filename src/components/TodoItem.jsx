@@ -1,47 +1,44 @@
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectTodoCardById,
+  toggledTodoListItem,
+  editedTodoListItemValue,
+  removedTodoListItem,
+} from "../features/todoCards/todoCardsSlice";
 import clsx from "clsx";
 import { useState } from "react";
-import { useTodos, useTodosDispatch } from "./TodosProvider";
 import { colorMap } from "./colorMap";
 
-export function TodoItem({ value, isDone, cardId, id, isEdit }) {
-  const [editValue, setEditValue] = useState(value);
-  const dispatch = useTodosDispatch();
-  const todos = useTodos();
+export function TodoItem({ cardId, id }) {
+  const todoCard = useSelector((state) => selectTodoCardById(state, cardId));
+  const dispatch = useDispatch();
 
-  const currentColor = todos.find((todo) => todo.id === cardId)?.color;
-  const colorClasses = colorMap[currentColor] || {};
+  const { isEdit, color } = todoCard;
+  const colorClasses = colorMap[color] || {};
 
-  const toggleItem = () => {
-    dispatch({
-      type: "TOGGLE_TODO_ITEM",
-      cardId,
-      itemId: id,
-    });
+  const todoItem = todoCard.todoItems.find((todoItem) => todoItem.id === id);
+  const { value, isDone } = todoItem;
+
+  const [draftValue, setDraftValue] = useState(value);
+
+  const handleToggleTodoItemChange = () => {
+    dispatch(toggledTodoListItem({ cardId, id }));
   };
 
-  const updateItem = () => {
-    let trimmed = editValue.trim();
-    if (trimmed.length < 1) {
-      trimmed = "New task";
+  const handleConfirmEditTodoItemValueBlur = () => {
+    let newValue = draftValue.trim();
+    if (newValue.length < 1) {
+      newValue = "New task";
       if (!isEdit) {
-        setEditValue(trimmed);
+        setDraftValue(newValue);
       }
     }
 
-    dispatch({
-      type: "EDIT_TODO_ITEM_VALUE",
-      cardId,
-      itemId: id,
-      value: trimmed,
-    });
+    dispatch(editedTodoListItemValue({ cardId, id, value: newValue }));
   };
 
-  const deleteItem = () => {
-    dispatch({
-      type: "REMOVE_TODO_ITEM",
-      cardId,
-      itemId: id,
-    });
+  const handleDeleteTodoItemClick = () => {
+    dispatch(removedTodoListItem({ cardId, id }));
   };
 
   return (
@@ -56,27 +53,27 @@ export function TodoItem({ value, isDone, cardId, id, isEdit }) {
           type="checkbox"
           className={clsx(
             "h-5 w-5 shrink-0 cursor-pointer appearance-none rounded-full border-2",
-            `border-${currentColor}`,
+            `border-${color}`,
             isDone && colorClasses.bg,
           )}
           checked={isDone}
-          onChange={toggleItem}
+          onChange={handleToggleTodoItemChange}
         />
 
         {isEdit ? (
           <>
             <input
               type="text"
-              value={editValue}
-              onChange={(e) => setEditValue(e.target.value)}
-              onBlur={updateItem}
+              value={draftValue}
+              onChange={(e) => setDraftValue(e.target.value)}
+              onBlur={handleConfirmEditTodoItemValueBlur}
               className="w-full text-sm text-gray-600 outline-0"
               placeholder="Enter your task"
               autoFocus
             />
             <button
               type="button"
-              onClick={deleteItem}
+              onClick={handleDeleteTodoItemClick}
               className="cursor-pointer"
             >
               <svg

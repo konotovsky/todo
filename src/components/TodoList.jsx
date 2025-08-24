@@ -4,14 +4,15 @@ import { selectTodoCardById } from "../features/todoCards/todoCardsSlice";
 
 export function TodoList({ id }) {
   const todoCard = useSelector((state) => selectTodoCardById(state, id));
-  const items = todoCard.items;
+
+  const { todoItems } = todoCard;
 
   return (
     <div className="scrollbar-thin flex-1 overflow-y-auto px-5">
       <ul>
-        {items &&
-          items.map((item) => {
-            return <TodoItem key={item.id} cardId={id} id={item.id} />;
+        {todoItems &&
+          todoItems.map((todoItem) => {
+            return <TodoItem key={todoItem.id} cardId={id} id={todoItem.id} />;
           })}
       </ul>
     </div>

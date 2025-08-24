@@ -1,11 +1,17 @@
 import { useSelector } from "react-redux";
-import { selectTodoCardById } from "../features/todoCards/todoCardsSlice";
+import {
+  selectTodoCardCompletedCount,
+  selectTodoCardTotalCount,
+} from "../features/todoCards/todoCardsSlice";
 
 export function TodoStats({ id }) {
-  const todoCard = useSelector((state) => selectTodoCardById(state, id));
-  const completedCount =
-    todoCard?.items?.filter((item) => item.isDone).length ?? 0;
-  const totalCount = todoCard?.items?.length ?? 0;
+  const completedCount = useSelector((state) =>
+    selectTodoCardCompletedCount(state, id),
+  );
+
+  const totalCount = useSelector((state) =>
+    selectTodoCardTotalCount(state, id),
+  );
 
   return (
     <div className="text-xs text-white">
