@@ -36,6 +36,9 @@ export const todoCardsSlice = createSlice({
         state.splice(index, 1);
       }
     },
+    removedAllTodoCards: () => {
+      return [];
+    },
     editedTodoCard: (state, action) => {
       const todoCard = state.find((todoCard) => todoCard.id === action.payload);
 
@@ -151,6 +154,7 @@ export const todoCardsSlice = createSlice({
 export const {
   addedTodoCard,
   removedTodoCard,
+  removedAllTodoCards,
   editedTodoCard,
   editedTodoCardTitle,
   editedTodoCardColor,

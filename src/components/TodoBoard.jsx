@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { TodoCard } from "./TodoCard";
 import { TodoCardAddButton } from "./TodoCardAddButton";
 import { selectTodoCards } from "../features/todoCards/todoCardsSlice";
+import { TodoCardDeleteAllButton } from "./TodoCardDeleteAllButton";
 
 export const TodoBoard = () => {
   const todoCards = useSelector(selectTodoCards);
@@ -11,6 +12,7 @@ export const TodoBoard = () => {
       {todoCards.map((todo) => (
         <TodoCard key={todo.id} id={todo.id} />
       ))}
+      <TodoCardDeleteAllButton />
       <TodoCardAddButton />
     </div>
   );
