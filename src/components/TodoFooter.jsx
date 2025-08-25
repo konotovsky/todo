@@ -4,7 +4,7 @@ import {
   selectTodoCardById,
 } from "../features/todoCards/todoCardsSlice";
 import clsx from "clsx";
-import { colorMap } from "./colorMap";
+import { colorMap } from "../app/colorMap";
 import { TodoColor } from "./TodoColor";
 import { TodoStats } from "./TodoStats";
 

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { colorMap } from "./colorMap";
+import { colorMap } from "../app/colorMap";
 import { useSelector, useDispatch } from "react-redux";
 import {
   editedTodoCardColor,

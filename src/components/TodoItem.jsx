@@ -7,7 +7,7 @@ import {
 } from "../features/todoCards/todoCardsSlice";
 import clsx from "clsx";
 import { useState } from "react";
-import { colorMap } from "./colorMap";
+import { colorMap } from "../app/colorMap";
 
 export function TodoItem({ cardId, id }) {
   const todoCard = useSelector((state) => selectTodoCardById(state, cardId));
