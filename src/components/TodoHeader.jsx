@@ -10,15 +10,9 @@ import clsx from "clsx";
 import { colorMap } from "../app/colorMap";
 
 export function TodoHeader({ id }) {
-  const { title, isEdit, color } = useSelector((state) => {
-    const TodoCard = selectTodoCardById(state, id);
-
-    return {
-      title: TodoCard.title,
-      isEdit: TodoCard.isEdit,
-      color: TodoCard.color,
-    };
-  });
+  const title = useSelector((state) => selectTodoCardById(state, id).title);
+  const isEdit = useSelector((state) => selectTodoCardById(state, id).isEdit);
+  const color = useSelector((state) => selectTodoCardById(state, id).color);
 
   const dispatch = useDispatch();
 
