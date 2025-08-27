@@ -139,11 +139,7 @@ export const todoCardsSlice = createSlice({
     selectIsAnyTodoCardEditing: (todoCardsState) => {
       return todoCardsState.some((todoCard) => todoCard.isEdit);
     },
-    selectIsTodoCardEditingById: (todoCardsState, id) => {
-      const todoCard = todoCardsState.find((todoCard) => todoCard.id === id);
 
-      return todoCard.isEdit;
-    },
     selectTotalTodoCards: (todoCardsState) => {
       return todoCardsState.length;
     },
@@ -179,7 +175,6 @@ export const {
   selectTodoCards,
   selectTodoCardById,
   selectIsAnyTodoCardEditing,
-  selectIsTodoCardEditingById,
   selectTotalTodoCards,
   selectTodoItemsCompletedCount,
   selectTodoItemsTotalCount,
