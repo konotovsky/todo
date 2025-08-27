@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
 import {
-  selectTodoCards,
   removedAllTodoCards,
+  selectTotalTodoCards,
+  selectIsAnyTodoCardEditing,
 } from "../features/todoCards/todoCardsSlice";
 import { useDispatch } from "react-redux";
 
 export function TodoCardDeleteAllButton() {
-  const todoCards = useSelector(selectTodoCards);
-  const totalCards = todoCards.length;
-  const isEdit = todoCards.some((todoCard) => todoCard.isEdit);
+  const totalCards = useSelector(selectTotalTodoCards);
+  const isEdit = useSelector(selectIsAnyTodoCardEditing);
   const dispatch = useDispatch();
 
   const handleDeleteAllCardsClick = () => {

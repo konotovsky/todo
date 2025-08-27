@@ -9,10 +9,9 @@ import { TodoColor } from "./TodoColor";
 import { TodoStats } from "./TodoStats";
 
 export function TodoFooter({ id }) {
-  const todoCard = useSelector((state) => selectTodoCardById(state, id));
   const dispatch = useDispatch();
 
-  const { color } = todoCard;
+  const color = useSelector((state) => selectTodoCardById(state, id)?.color);
   const colorClasses = colorMap[color] || {};
 
   const handleAddTodoItemClick = () => {

@@ -10,14 +10,21 @@ import { useState } from "react";
 import { colorMap } from "../app/colorMap";
 
 export function TodoItem({ cardId, id }) {
-  const todoCard = useSelector((state) => selectTodoCardById(state, cardId));
+  const { value, isDone, isEdit, color } = useSelector((state) => {
+    const todoCard = selectTodoCardById(state, cardId);
+    const todoItem = todoCard.todoItems.find((todoItem) => todoItem.id === id);
+
+    return {
+      value: todoItem.value,
+      isDone: todoItem.isDone,
+      isEdit: todoCard.isEdit,
+      color: todoCard.color,
+    };
+  });
+
   const dispatch = useDispatch();
 
-  const { isEdit, color } = todoCard;
   const colorClasses = colorMap[color] || {};
-
-  const todoItem = todoCard.todoItems.find((todoItem) => todoItem.id === id);
-  const { value, isDone } = todoItem;
 
   const [draftValue, setDraftValue] = useState(value);
 

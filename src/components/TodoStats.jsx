@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
 import {
-  selectTodoCardCompletedCount,
-  selectTodoCardTotalCount,
+  selectTodoItemsCompletedCount,
+  selectTodoItemsTotalCount,
 } from "../features/todoCards/todoCardsSlice";
 
 export function TodoStats({ id }) {
   const completedCount = useSelector((state) =>
-    selectTodoCardCompletedCount(state, id),
+    selectTodoItemsCompletedCount(state, id),
   );
 
   const totalCount = useSelector((state) =>
-    selectTodoCardTotalCount(state, id),
+    selectTodoItemsTotalCount(state, id),
   );
 
   return (

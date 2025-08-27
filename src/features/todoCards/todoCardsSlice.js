@@ -136,14 +136,25 @@ export const todoCardsSlice = createSlice({
     selectTodoCardById: (todoCardsState, id) => {
       return todoCardsState.find((todoCard) => todoCard.id === id);
     },
-    selectTodoCardCompletedCount: (todoCardsState, id) => {
+    selectIsAnyTodoCardEditing: (todoCardsState) => {
+      return todoCardsState.some((todoCard) => todoCard.isEdit);
+    },
+    selectIsTodoCardEditingById: (todoCardsState, id) => {
+      const todoCard = todoCardsState.find((todoCard) => todoCard.id === id);
+
+      return todoCard.isEdit;
+    },
+    selectTotalTodoCards: (todoCardsState) => {
+      return todoCardsState.length;
+    },
+    selectTodoItemsCompletedCount: (todoCardsState, id) => {
       const todoCard = todoCardsState.find((todoCard) => todoCard.id === id);
 
       return todoCard
         ? todoCard.todoItems.filter((todoItem) => todoItem.isDone).length
         : 0;
     },
-    selectTodoCardTotalCount: (todoCardsState, id) => {
+    selectTodoItemsTotalCount: (todoCardsState, id) => {
       const todoCard = todoCardsState.find((todoCard) => todoCard.id === id);
 
       return todoCard ? todoCard.todoItems.length : 0;
@@ -167,8 +178,11 @@ export const {
 export const {
   selectTodoCards,
   selectTodoCardById,
-  selectTodoCardCompletedCount,
-  selectTodoCardTotalCount,
+  selectIsAnyTodoCardEditing,
+  selectIsTodoCardEditingById,
+  selectTotalTodoCards,
+  selectTodoItemsCompletedCount,
+  selectTodoItemsTotalCount,
 } = todoCardsSlice.selectors;
 
 export default todoCardsSlice.reducer;

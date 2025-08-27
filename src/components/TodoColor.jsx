@@ -3,14 +3,13 @@ import { colorMap } from "../app/colorMap";
 import { useSelector, useDispatch } from "react-redux";
 import {
   editedTodoCardColor,
-  selectTodoCardById,
+  selectIsTodoCardEditingById,
 } from "../features/todoCards/todoCardsSlice";
 
 export function TodoColor({ id }) {
-  const todoCard = useSelector((state) => selectTodoCardById(state, id));
+  const isEdit = useSelector((state) => selectIsTodoCardEditingById(state, id));
   const dispatch = useDispatch();
 
-  const { isEdit } = todoCard;
   const availableColors = isEdit ? Object.keys(colorMap) : [];
 
   const handleColorClick = (color) => {

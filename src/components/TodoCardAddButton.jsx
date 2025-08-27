@@ -1,13 +1,12 @@
 import { useSelector } from "react-redux";
 import {
   addedTodoCard,
-  selectTodoCards,
+  selectIsAnyTodoCardEditing,
 } from "../features/todoCards/todoCardsSlice";
 import { useDispatch } from "react-redux";
 
 export function TodoCardAddButton() {
-  const todoCards = useSelector(selectTodoCards);
-  const isEdit = todoCards.some((todoCard) => todoCard.isEdit);
+  const isEdit = useSelector(selectIsAnyTodoCardEditing);
   const dispatch = useDispatch();
 
   const handleAddTodoCard = () => {
